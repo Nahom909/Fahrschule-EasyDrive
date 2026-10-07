@@ -34,7 +34,7 @@ STATIC = BASE / "static"
 DIST = BASE / "dist"
 ICONS = Path(__file__).resolve().parent / "icons"
 SITE = "https://www.fahrschule-easydrive.org"
-VERSION = "15"  # bei Änderungen an CSS/JS hochzählen
+VERSION = "17"  # bei Änderungen an CSS/JS hochzählen
 
 esc = html.escape
 WARNINGS: list[str] = []
@@ -210,7 +210,13 @@ def json_ld(data: dict) -> str:
 
 
 def maps_url(l: dict) -> str:
+    """Google-Maps-Profil des Standorts (dort stehen auch die Bewertungen)."""
     return "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f"{S['firmenname']} {l['strasse']} {l['plz']} {l['ort']}")
+
+
+def route_url(l: dict) -> str:
+    """Google Maps öffnet direkt die Routenplanung zum Standort."""
+    return "https://www.google.com/maps/dir/?api=1&destination=" + quote_plus(f"{S['firmenname']}, {l['strasse']}, {l['plz']} {l['ort']}")
 
 
 # ---------------------------------------------------------------- Seitengerüst
@@ -479,6 +485,10 @@ def page_index() -> str:
         </article>""")
     hinweise = "\n".join(f'        <span>{icon("check")}{esc(h)}</span>' for h in preise.get("hinweise", []))
 
+    # Links zu den Google-Profilen (dort stehen die Bewertungen)
+    google_links = ('<span class="google-links"><span class="google-label">Auf Google ansehen:</span>' + "".join(
+        f'<a href="{maps_url(l)}" target="_blank" rel="noopener">{icon("google-logo")}{esc(l["kurzname"])}</a>' for l in LOCATIONS
+    ) + "</span>")
     bewertungen = ""
     if bew.get("anzeigen"):
         cards = "\n".join(
@@ -500,6 +510,7 @@ def page_index() -> str:
             {stars(5)}
             <span><strong>{esc(bew["zeile_1"])}</strong> {esc(bew.get("zeile_1_rest", ""))}</span>
             <span>{esc(bew.get("zeile_2", ""))}</span>
+            {google_links}
           </div>
         </div>
       </div>
@@ -744,6 +755,17 @@ def page_standort(l: dict) -> str:
         f'        <a href="../{o["slug"]}/"><strong>{esc(o["name"])} {icon("arrow-right")}</strong><small>{esc(o["strasse"])}</small></a>'
         for o in LOCATIONS if o is not l
     )
+    karte_html = ""
+    if (STATIC / "assets" / "img" / f"karte-{l['slug']}.webp").exists():
+        karte_html = f'''<div class="anfahrt" data-reveal>
+          <h2 class="block-titel">Anfahrt</h2>
+          <a class="karte" href="{route_url(l)}" target="_blank" rel="noopener" aria-label="Route zu {esc(l['name'])} in Google Maps berechnen">
+            <img src="../../assets/img/karte-{l['slug']}.webp" alt="Kartenausschnitt um {esc(l['strasse'])}, {esc(l['ort'])}" width="1200" height="700" loading="lazy" decoding="async">
+            <span class="karte-adresse">{icon("map-pin")}{esc(l['strasse'])}, {esc(l['plz'])} {esc(l['ort'])}</span>
+            <span class="btn karte-knopf">{icon("navigation-arrow")}Route berechnen</span>
+          </a>
+          <p class="karte-quelle">Karte: © OpenStreetMap-Mitwirkende. Die Route öffnet sich in Google Maps.</p>
+        </div>'''
     form_klassen = ["B78 (Automatik)" if k == "B-Automatik" else k for k in l.get("klassen", [])] or KLASSEN_OPTIONEN
     ld = {"@context": "https://schema.org", **ld_location(l)}
     title = f"{S['firmenname']} {l['kurzname']} | {l['strasse']}, {l['ort']}"
@@ -781,9 +803,11 @@ def page_standort(l: dict) -> str:
             <a class="aktion" href="tel:{tel(l["telefon"])}">{icon("phone")}<span><strong>Anrufen</strong><small>{esc(l["telefon"])}</small></span></a>
             <a class="aktion" href="https://wa.me/{wa(l["whatsapp"])}" target="_blank" rel="noopener">{icon("whatsapp-logo")}<span><strong>WhatsApp</strong><small>{esc(l["whatsapp"])}</small></span></a>
             <a class="aktion" href="mailto:{esc(l["email"])}">{icon("envelope-simple")}<span><strong>E-Mail</strong><small>{esc(l["email"])}</small></span></a>
-            <a class="aktion" href="{maps_url(l)}" target="_blank" rel="noopener">{icon("map-pin")}<span><strong>Route planen</strong><small>Google Maps</small></span></a>
+            <a class="aktion" href="{maps_url(l)}" target="_blank" rel="noopener">{icon("google-logo")}<span><strong>Bewertungen</strong><small>auf Google ansehen</small></span></a>
           </div>
         </div>
+
+        {karte_html}
 
         <div class="zeiten" data-reveal>
           <div class="zeiten-karte">
