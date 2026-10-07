@@ -1281,3 +1281,9 @@ h3 {
   .karte-knopf { left: 16px; right: 16px; }
 }
 .google-label { font-size: 0.875rem; color: var(--muted); }
+
+/* Handy hochkant mit eigenem 9:16-Film: das Bild ist oben und unten schwarz, das Auto liegt
+   im mittleren Streifen. Bild nach unten schieben, damit das Auto unten sitzt. */
+@media (max-width: 900px) and (orientation: portrait) {
+  .hat-hoch .car-a { bottom: -62vw; }
+}

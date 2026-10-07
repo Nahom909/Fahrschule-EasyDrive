@@ -278,7 +278,7 @@ def _ausfuellen_ausschnitt(bild: np.ndarray, maske: np.ndarray, runden: int) -> 
     return out.clip(0, 255).astype(np.uint8)
 
 
-def film(pfad: str, breite: int, ende_ziel: str | None, hoch: bool = False) -> None:
+def film(pfad: str, breite: int, ende_ziel: str | None, hoch: bool = False, kante_oben: int = 0) -> None:
     """Video unverändert in Einzelbilder zerlegen (Hintergrund bleibt, z. B. schwarz),
     Wasserzeichen wegretuschieren, als WebP speichern.
     Es entstehen zwei Sätze: volle Größe und eine leichte Fassung fürs Handy (Unterordner m/).
@@ -303,11 +303,20 @@ def film(pfad: str, breite: int, ende_ziel: str | None, hoch: bool = False) -> N
     W, H = round(w * faktor), round(h * faktor)
     leicht = min(1.0, (720 if hoch else 820) / w)
     Wm, Hm = round(w * leicht), round(h * leicht)
+    # harte, waagerechte Schnittkante über dem Auto weich ins Schwarz auslaufen lassen
+    verlauf = None
+    if kante_oben:
+        band = max(40, h // 20)
+        t = np.clip((np.arange(h) - kante_oben) / band, 0, 1)
+        verlauf = (t * t * (3 - 2 * t)).astype(np.float32)[:, None, None]
+        print(f"Oberkante bei y={kante_oben} wird über {band} px ausgeblendet")
     frames = []
     letztes = None
     for i, f in enumerate(st, 1):
         if maske.any():
             f = _ausfuellen(f, maske)
+        if verlauf is not None:
+            f = (f.astype(np.float32) * verlauf).astype(np.uint8)
         im = Image.fromarray(f)
         letztes = im
         name = f"frame-{i:03d}.webp"
@@ -359,6 +368,7 @@ def main() -> None:
     fi.add_argument("--breite", type=int, default=1600)
     fi.add_argument("--ende", default=None, help="letztes Bild in voller Auflösung hierhin")
     fi.add_argument("--hoch", action="store_true", help="Hochformat-Video fürs Handy (9:16)")
+    fi.add_argument("--kante-oben", type=int, default=0, help="y-Pixel einer harten Kante über dem Auto, wird weich ausgeblendet")
     o = sub.add_parser("ordner")
     o.add_argument("pfad")
     f = sub.add_parser("freistellen")
@@ -373,7 +383,7 @@ def main() -> None:
         video(a.datei, a.max)
     elif a.modus == "film":
         ende = a.ende or ("static/assets/img/leistungen-film-hoch.webp" if a.hoch else "static/assets/img/leistungen-film.webp")
-        film(a.datei, a.breite if not a.hoch or a.breite != 1600 else 1080, ende, a.hoch)
+        film(a.datei, a.breite if not a.hoch or a.breite != 1600 else 1080, ende, a.hoch, a.kante_oben)
     elif a.modus == "ordner":
         ordner(a.pfad)
     else:

@@ -73,6 +73,14 @@ python _quelle/build.py
 
 Das Video sollte das Auto auf schwarzem Hintergrund zeigen und mit der Frontansicht enden.
 
+Für Handys hochkant gibt es eine eigene 9:16-Fassung (`_quelle/kamerafahrt-hoch.mp4`). Sie wird automatisch für Handys und kleine Tablets im Hochformat genommen:
+
+```bash
+python _quelle/frames.py film _quelle/kamerafahrt-hoch.mp4 --hoch --kante-oben 652
+```
+
+`--kante-oben` blendet eine harte Schnittkante über dem Auto weich aus (y-Pixel im Video).
+
 ## Kontaktformulare
 
 Die Formulare öffnen das E-Mail-Programm der Besucher mit einer fertig ausgefüllten Nachricht an die jeweilige Standort-Adresse. Es wird nichts auf einem Server gespeichert, deshalb ist kein Cookie-Banner nötig. Sollen Nachrichten später direkt verschickt werden, lässt sich das mit Netlify Forms nachrüsten (Datenschutzerklärung dann anpassen).

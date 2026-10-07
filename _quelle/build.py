@@ -34,7 +34,7 @@ STATIC = BASE / "static"
 DIST = BASE / "dist"
 ICONS = Path(__file__).resolve().parent / "icons"
 SITE = "https://www.fahrschule-easydrive.org"
-VERSION = "17"  # bei Änderungen an CSS/JS hochzählen
+VERSION = "18"  # bei Änderungen an CSS/JS hochzählen
 
 esc = html.escape
 WARNINGS: list[str] = []
@@ -607,7 +607,7 @@ def page_index() -> str:
     return f"""{head(root, HOME["seo_titel"], HOME["seo_beschreibung"], "", preload=preload, extra=chr(10) + "  " + TOKEN_REDIRECT + chr(10) + "  " + json_ld(ld))}
 {header(root, "home")}
 <main id="inhalt">
-  <div class="journey" data-journey data-seq="{seq_attr}" style="{pos}">
+  <div class="journey{' hat-hoch' if hoch else ''}" data-journey data-seq="{seq_attr}" style="{pos}">
     <div class="stage-wrap">
       <div class="stage">
         {car_b}
