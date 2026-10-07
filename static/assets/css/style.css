@@ -426,8 +426,7 @@ h3 {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.35) 38%, rgba(0, 0, 0, 0) 62%);
   opacity: var(--sc, 0);
 }
-.stage-shade { background: #000; opacity: 0; transition: opacity 0.8s var(--ease-out); }
-.journey.leistungen-da .stage-shade { opacity: 0.62; }
+.stage-shade { background: #000; opacity: var(--s, 0); }
 
 /* Hero: Überschrift und Text oben links, das freigestellte Auto ganz unten rechts */
 .hero-frame {
@@ -488,28 +487,13 @@ h3 {
 }
 
 /* Scroll-Strecke der Kamerafahrt; danach folgen die Leistungen über Bild 2 */
-.hero-space { height: 160vh; height: 160svh; } /* = Länge der Kamerafahrt (FAHRT in main.js) */
+.hero-space { height: 225vh; height: 225svh; }
 
 .leistungen {
   position: relative;
   z-index: 1;
-  padding-top: calc(var(--nav-h) + clamp(24px, 6vh, 64px));
   padding-bottom: var(--section-y);
 }
-/* Die Leistungen kommen erst nach der Kamerafahrt, und zwar von oben herein */
-.js .leistungen .section-head,
-.js .leistungen .gruppe-titel,
-.js .leistungen .klasse {
-  opacity: 0;
-  transform: translateY(-56px);
-  transition: opacity 0.55s var(--ease-out), transform 0.8s var(--ease-out);
-}
-.js .journey.leistungen-da .leistungen .section-head,
-.js .journey.leistungen-da .leistungen .gruppe-titel,
-.js .journey.leistungen-da .leistungen .klasse { opacity: 1; transform: none; }
-.js .journey.leistungen-da .leistungen .gruppe-titel { transition-delay: 0.12s; }
-.js .journey.leistungen-da .leistungen .klasse { transition-delay: calc(0.18s + var(--i, 0) * 0.06s); }
-.js .journey.leistungen-da .leistungen .klassen-gruppe + .klassen-gruppe .klasse { transition-delay: calc(0.42s + var(--i, 0) * 0.06s); }
 .leistungen .section-head { text-align: center; justify-items: center; }
 .leistungen h2 { font-size: clamp(2.75rem, 7vw, 6rem); }
 .leistungen .lead { color: rgba(244, 244, 241, 0.86); }
@@ -1239,7 +1223,6 @@ h3 {
   .rev-row { overflow-x: auto; }
   /* Ohne Kamerafahrt: Bilder stehen still, der Wechsel geschieht nur über Schwarz */
   .car-b, .hero-fade { transform: none; }
-  .js .leistungen .section-head, .js .leistungen .gruppe-titel, .js .leistungen .klasse { transform: none; }
 }
 
 /* ---------- Home-Knopf ---------- */

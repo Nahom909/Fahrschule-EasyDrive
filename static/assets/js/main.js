@@ -252,6 +252,9 @@
     var vh = window.innerHeight;
     var into = -journey.getBoundingClientRect().top;
     target = clamp(into / (vh * FAHRT), 0, 1);
+    // Abdunklung, sobald die Leistungs-Kästen über das Bild laufen (direkt am Scroll)
+    var s = clamp((into - vh * (FAHRT + 0.35)) / (vh * 0.5), 0, 1) * 0.66;
+    journey.style.setProperty("--s", s.toFixed(3));
     if (!running) {
       running = true;
       window.requestAnimationFrame(step);
