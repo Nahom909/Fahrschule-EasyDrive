@@ -34,7 +34,7 @@ STATIC = BASE / "static"
 DIST = BASE / "dist"
 ICONS = Path(__file__).resolve().parent / "icons"
 SITE = "https://www.fahrschule-easydrive.org"
-VERSION = "18"  # bei Änderungen an CSS/JS hochzählen
+VERSION = "19"  # bei Änderungen an CSS/JS hochzählen
 
 esc = html.escape
 WARNINGS: list[str] = []
@@ -578,6 +578,8 @@ def page_index() -> str:
             "zeiten": m.get("zeiten") or [i / max(1, len(m["frames"]) - 1) for i in range(len(m["frames"]))],
             # Lage des Autos im Leistungsbild (Anteile), damit das letzte Bild dort ankommt
             "endeBbox": m.get("ende_bbox", [0.1, 0.02, 0.9, 0.99]),
+            "bandStart": m.get("band_start"),
+            "bandEnde": m.get("band_ende"),
         }
 
     quer = seq_satz("seq")

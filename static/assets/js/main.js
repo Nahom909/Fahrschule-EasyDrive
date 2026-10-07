@@ -37,7 +37,8 @@
     var hochkant = window.innerHeight > window.innerWidth;
     var name = klein && hochkant && saetze.hoch ? "hoch" : "quer";
     var satz = saetze[name];
-    var leicht = klein && satz.leicht;
+    // Hochformat wird auf dem Handy gezoomt, deshalb dort die scharfen großen Bilder
+    var leicht = klein && satz.leicht && name !== "hoch";
     var schluessel = name + (leicht ? "-leicht" : "");
     if (schluessel === satzSchluessel) return false;
     satzSchluessel = schluessel;
@@ -81,6 +82,50 @@
     });
   }
 
+  // Handy hochkant mit 9:16-Film: Das Auto ist im Film nur ein Streifen in der Mitte.
+  // Deshalb wird gezoomt: Am Anfang füllt das Auto den freien Platz unter den Knöpfen,
+  // am Ende füllt die Front gut die halbe Bildschirmhöhe (wie am PC die Motorhaube).
+  var HOCH_ENDE_HOEHE = 0.52;  // Anteil der Bildschirmhöhe, den die Front am Ende einnimmt
+  var HOCH_ENDE_MITTE = 0.46;  // senkrechte Lage der Front am Ende
+  function vermesseHoch(sw, sh) {
+    var W = seq.w, H = seq.h;
+    var b0 = seq.bandStart, b1 = seq.bandEnde;
+    var unten = journey.querySelector(".hero-bottom");
+    var frei0 = unten ? unten.offsetTop + unten.offsetHeight + 20 : sh * 0.45;
+    var frei1 = sh - 8;
+    var bandAsp = ((b0[2] - b0[0]) * W) / ((b0[3] - b0[1]) * H);
+    // Auto so groß wie möglich im freien Bereich, höchstens 1,35-fache Bildschirmbreite (Heck darf raus)
+    var bh = Math.min((frei1 - frei0) * 0.95, (sw * 1.35) / bandAsp);
+    var s0 = bh / ((b0[3] - b0[1]) * H);
+    var bandOben = frei0 + (frei1 - frei0 - bh) / 2;
+    R0 = { w: W * s0, h: H * s0, x: sw * 0.02 - b0[0] * W * s0, y: bandOben - b0[1] * H * s0 };
+    var s1 = (HOCH_ENDE_HOEHE * sh) / ((b1[3] - b1[1]) * H);
+    var cx = ((b1[0] + b1[2]) / 2) * W * s1;
+    var cy = ((b1[1] + b1[3]) / 2) * H * s1;
+    R1 = { w: W * s1, h: H * s1, x: sw / 2 - cx, y: sh * HOCH_ENDE_MITTE - cy };
+    setzeRect(carA, R0);
+    setzeRect(carB, R1);
+    T0 = T1 = true;
+  }
+  function setzeRect(el, R) {
+    if (!el) return;
+    el.style.left = R.x + "px";
+    el.style.top = R.y + "px";
+    el.style.width = R.w + "px";
+    el.style.height = R.h + "px";
+    el.style.right = "auto";
+    el.style.bottom = "auto";
+    el.style.maxWidth = "none";
+    el.style.objectFit = "fill";
+    el.style.transform = "none";
+  }
+  function stileZuruecksetzen() {
+    [carA, carB].forEach(function (el) {
+      if (!el) return;
+      ["left", "top", "width", "height", "right", "bottom", "maxWidth", "objectFit", "transform"].forEach(function (k) { el.style[k] = ""; });
+    });
+  }
+
   // Wo steht das Auto am Anfang (Startbild) und am Ende (im Leistungsbild)?
   function vermesse() {
     if (!seq || !ctx || !stage) return;
@@ -89,6 +134,12 @@
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(sw * dpr);
     canvas.height = Math.round(sh * dpr);
+    buehne = { w: sw, h: sh };
+    if (satzSchluessel.indexOf("hoch") === 0 && seq.bandStart && seq.bandEnde) {
+      vermesseHoch(sw, sh);
+      return;
+    }
+    stileZuruecksetzen();
     var st = stage.getBoundingClientRect();
     var a = carA.getBoundingClientRect();
     R0 = { x: a.left - st.left, y: a.top - st.top, w: a.width, h: a.height };
@@ -253,7 +304,8 @@
     var into = -journey.getBoundingClientRect().top;
     target = clamp(into / (vh * FAHRT), 0, 1);
     // Abdunklung, sobald die Leistungs-Kästen über das Bild laufen (direkt am Scroll)
-    var s = clamp((into - vh * (FAHRT + 0.35)) / (vh * 0.5), 0, 1) * 0.66;
+    var staerke = satzSchluessel.indexOf("hoch") === 0 ? 0.42 : 0.66;
+    var s = clamp((into - vh * (FAHRT + 0.35)) / (vh * 0.5), 0, 1) * staerke;
     journey.style.setProperty("--s", s.toFixed(3));
     if (!running) {
       running = true;

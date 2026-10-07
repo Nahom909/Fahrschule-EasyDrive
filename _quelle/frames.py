@@ -328,8 +328,20 @@ def film(pfad: str, breite: int, ende_ziel: str | None, hoch: bool = False, kant
     if ende_ziel and letztes is not None:
         letztes.save(BASE / ende_ziel, "WEBP", quality=90, method=6)
         print("Endbild (volle Auflösung):", ende_ziel)
+    def band(bild: Image.Image) -> list[float]:
+        g = np.asarray(bild.convert("L"))
+        hh, ww = g.shape
+        g = g[: int(hh * 0.93)]  # Wasserzeichen-Zone unten ignorieren
+        r = np.where((g > 30).mean(1) > 0.03)[0]
+        c = np.where((g > 30).mean(0) > 0.03)[0]
+        return [round(c.min() / ww, 3), round(r.min() / hh, 3), round(c.max() / ww, 3), round(r.max() / hh, 3)]
+
+    erstes_bild = Image.open(ziel / frames[0]["src"])
+    letztes_bild = Image.open(ziel / frames[-1]["src"])
     manifest = {
         "typ": "film",
+        "band_start": band(erstes_bild),   # wo das Auto im ersten Bild liegt (Anteile)
+        "band_ende": band(letztes_bild),   # und im letzten
         "quelle": f"Video {Path(pfad).name}",
         "breite": W,
         "hoehe": H,
