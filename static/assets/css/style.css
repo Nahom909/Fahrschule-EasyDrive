@@ -28,9 +28,9 @@
   --text: #f4f4f1;
   --muted: #a8a8a3;
   --faint: #85857f;
-  --accent: #fdc104;
-  --accent-hover: #ffd23f;
-  --on-accent: #0a0a0a;
+  --accent: #2b2b2e;          /* dunkles Grau statt Gelb */
+  --accent-hover: #3a3a3e;
+  --on-accent: #f4f4f1;
   --hi: #ffffff;          /* Hervorhebung in Schrift und Symbolen: weiß statt gelb */
 
   --r-card: 16px;
@@ -82,10 +82,10 @@ a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; color: inherit; }
 h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
-::selection { background: var(--accent); color: var(--on-accent); }
+::selection { background: #4a4a4f; color: var(--on-accent); }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--hi);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -165,7 +165,7 @@ h3 {
   gap: 10px;
   min-height: 52px;
   padding: 0 26px;
-  border: 1px solid transparent;
+  border: 1px solid var(--line-strong);
   border-radius: var(--r-pill);
   background: var(--btn-bg);
   color: var(--btn-fg);
@@ -571,9 +571,9 @@ h3 {
   border-color: var(--accent);
   color: var(--on-accent);
 }
-.klasse-hinweis p { color: rgba(10, 10, 10, 0.78); font-size: 1rem; }
+.klasse-hinweis p { color: rgba(244, 244, 241, 0.72); font-size: 1rem; }
 .klasse-hinweis strong { font-size: 1.25rem; font-weight: 750; font-stretch: 112%; line-height: 1.2; color: var(--on-accent); }
-.klasse-hinweis .text-link { color: var(--on-accent); border-color: rgba(10, 10, 10, 0.4); align-self: flex-start; }
+.klasse-hinweis .text-link { color: var(--on-accent); border-color: rgba(244, 244, 241, 0.4); align-self: flex-start; }
 @media (hover: hover) and (pointer: fine) {
   .klasse-hinweis .text-link:hover { border-color: var(--on-accent); }
 }
@@ -658,7 +658,7 @@ h3 {
 }
 .preis-paket .klassen-label { font-size: 0.875rem; font-weight: 650; }
 .preis-paket h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 760; font-stretch: 114%; margin: 4px 0 10px; }
-.preis-paket p { color: rgba(10, 10, 10, 0.8); max-width: 52ch; }
+.preis-paket p { color: rgba(244, 244, 241, 0.72); max-width: 52ch; }
 .paket-preis {
   font-size: clamp(3rem, 6vw, 4.75rem);
   font-weight: 800;
@@ -911,8 +911,8 @@ h3 {
 .field select:focus-visible,
 .field textarea:focus-visible {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(253, 193, 4, 0.22);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
 }
 .field[data-invalid] input,
 .field[data-invalid] select,
@@ -927,8 +927,8 @@ h3 {
   display: none;
   padding: 14px 16px;
   border-radius: var(--r-input);
-  border: 1px solid rgba(253, 193, 4, 0.4);
-  background: rgba(253, 193, 4, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
   font-size: 0.9375rem;
 }
 .form-status.is-visible { display: block; }
@@ -1207,9 +1207,9 @@ h3 {
 .todo {
   margin: 0 0 32px;
   padding: 16px 18px;
-  border: 1px dashed rgba(253, 193, 4, 0.6);
+  border: 1px dashed rgba(255, 255, 255, 0.35);
   border-radius: var(--r-input);
-  background: rgba(253, 193, 4, 0.06);
+  background: rgba(255, 255, 255, 0.04);
   font-size: 0.9375rem;
 }
 .legal blockquote p { color: var(--text); }
