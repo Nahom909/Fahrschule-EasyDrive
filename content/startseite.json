@@ -1,0 +1,283 @@
+{
+  "seo_titel": "Fahrschule EasyDrive | Führerschein in Hannover, Hemmingen und Laatzen",
+  "seo_beschreibung": "Fahrschule EasyDrive mit vier Standorten in Hannover-Ricklingen, Hemmingen, Laatzen und Hannover-List. Klasse B, BF17, B197, Automatik, BE und Motorrad. Easy und stressfrei.",
+  "hero": {
+    "titel": "Fahrschule",
+    "titel_akzent": "EasyDrive",
+    "text": "Auto, Motorrad und Anhänger. Viermal in Hannover und Region.",
+    "knopf_standorte": "Standorte"
+  },
+  "leistungen": {
+    "titel": "Leistungen",
+    "text": "",
+    "bild": "/assets/img/leistungen-film.webp",
+    "bild_position": "50% 50%",
+    "gruppen": [
+      {
+        "titel": "Auto und Anhänger",
+        "icon": "car",
+        "klassen": [
+          {
+            "code": "B",
+            "titel": "Pkw",
+            "text": "Autos bis 3,5 t. Ab 18 Jahren.",
+            "ort": "An allen Standorten"
+          },
+          {
+            "code": "BF17",
+            "titel": "Begleitetes Fahren",
+            "text": "Ab 17 Jahren, mit Begleitperson.",
+            "ort": "An allen Standorten"
+          },
+          {
+            "code": "B197",
+            "titel": "Automatik plus Schalter",
+            "text": "Prüfung auf Automatik, danach auch Schaltwagen.",
+            "ort": "An allen Standorten"
+          },
+          {
+            "code": "B78",
+            "titel": "Nur Automatik",
+            "text": "Führerschein für Automatikautos.",
+            "ort": "An allen Standorten"
+          },
+          {
+            "code": "BE",
+            "titel": "Anhänger",
+            "text": "Anhänger bis 3,5 t.",
+            "ort": "Nur in Hemmingen"
+          }
+        ]
+      },
+      {
+        "titel": "Motorrad",
+        "icon": "motorcycle",
+        "klassen": [
+          {
+            "code": "A1",
+            "titel": "Leichtkraftrad",
+            "text": "Bis 125 cm³ und 11 kW. Ab 16 Jahren.",
+            "ort": "Nur in Hemmingen"
+          },
+          {
+            "code": "A2",
+            "titel": "Mittelklasse",
+            "text": "Bis 35 kW. Ab 18 Jahren.",
+            "ort": "Nur in Hemmingen"
+          },
+          {
+            "code": "A",
+            "titel": "Ohne Leistungsgrenze",
+            "text": "Ab 24 Jahren, mit A2 schon ab 20.",
+            "ort": "Nur in Hemmingen"
+          },
+          {
+            "code": "B196",
+            "titel": "125er mit Klasse B",
+            "text": "Ab 25 Jahren und 5 Jahren Klasse B.",
+            "ort": "Nur in Hemmingen"
+          }
+        ]
+      }
+    ],
+    "hinweis": {
+      "anzeigen": true,
+      "titel": "Motorrad und Anhänger nur in Hemmingen.",
+      "text": "",
+      "link_text": "Zum Standort",
+      "standort": "easydrive-hemmingen"
+    }
+  },
+  "preise": {
+    "titel": "Preise",
+    "text": "Gleiche Preise an allen Standorten.",
+    "karten": [
+      {
+        "klassen": "B, BF17, B197, B-Automatik",
+        "titel": "Auto",
+        "posten": [
+          {
+            "name": "Grundbetrag",
+            "hinweis": "inkl. Anmeldung, Theorieunterricht und Vortest",
+            "preis": "100 €"
+          },
+          {
+            "name": "Lehrmaterial",
+            "hinweis": "Lern-App",
+            "preis": "60 €"
+          },
+          {
+            "name": "Übungsstunde",
+            "hinweis": "à 45 Minuten",
+            "preis": "55 €"
+          },
+          {
+            "name": "Sonderfahrt",
+            "hinweis": "à 45 Minuten",
+            "preis": "65 €"
+          },
+          {
+            "name": "Vorstellung zur theoretischen Prüfung",
+            "hinweis": "",
+            "preis": "40 €"
+          },
+          {
+            "name": "Vorstellung zur praktischen Prüfung",
+            "hinweis": "",
+            "preis": "180 €"
+          },
+          {
+            "name": "Schaltkompetenznachweis",
+            "hinweis": "nur bei B197",
+            "preis": "40 €"
+          }
+        ]
+      },
+      {
+        "klassen": "A, A2, A1",
+        "titel": "Motorrad",
+        "posten": [
+          {
+            "name": "Grundbetrag",
+            "hinweis": "inkl. Anmeldung, Theorieunterricht und Vortest",
+            "preis": "100 €"
+          },
+          {
+            "name": "Lehrmaterial",
+            "hinweis": "Lern-App",
+            "preis": "60 €"
+          },
+          {
+            "name": "Übungsstunde",
+            "hinweis": "à 45 Minuten",
+            "preis": "60 €"
+          },
+          {
+            "name": "Sonderfahrt",
+            "hinweis": "à 45 Minuten",
+            "preis": "70 €"
+          },
+          {
+            "name": "Vorstellung zur theoretischen Prüfung",
+            "hinweis": "",
+            "preis": "40 €"
+          },
+          {
+            "name": "Vorstellung zur praktischen Prüfung",
+            "hinweis": "",
+            "preis": "200 €"
+          }
+        ]
+      }
+    ],
+    "paket": {
+      "anzeigen": true,
+      "klassen": "Klasse B196",
+      "titel": "125er-Paket",
+      "text": "Anmeldung und 10 Übungsstunden à 45 Minuten. Jede weitere Stunde 60 €.",
+      "preis": "750 €",
+      "preis_hinweis": "Paketpreis"
+    },
+    "hinweise": [
+      "Prüfungsgebühren von TÜV und Führerscheinstelle kommen hinzu"
+    ]
+  },
+  "ueber_uns": {
+    "galerie": [
+      {
+        "bild": "/assets/img/galerie-filiale.webp",
+        "alt": "Filiale der Fahrschule EasyDrive mit zwei Fahrschulautos",
+        "ausschnitt": "50% 60%"
+      },
+      {
+        "bild": "/assets/img/galerie-gold.webp",
+        "alt": "Goldener Fahrschulwagen mit EasyDrive-Logo",
+        "ausschnitt": "45% 45%"
+      },
+      {
+        "bild": "/assets/img/galerie-weiss.webp",
+        "alt": "Weißer Fahrschulwagen mit EasyDrive-Logo",
+        "ausschnitt": "47% 45%"
+      },
+      {
+        "bild": "/assets/img/galerie-schild.webp",
+        "alt": "Leuchtschild der Fahrschule EasyDrive",
+        "ausschnitt": "40% 40%"
+      },
+      {
+        "bild": "/assets/img/galerie-theorie.webp",
+        "alt": "Fahrschüler im Theorieunterricht",
+        "ausschnitt": "50% 50%"
+      }
+    ],
+    "sprachen_titel": "Fahrstunden in deiner Sprache",
+    "sprachen": [
+      "Deutsch",
+      "Englisch",
+      "Arabisch",
+      "Russisch",
+      "Polnisch",
+      "Kurdisch"
+    ],
+    "sprachen_hinweis": "Theorieprüfung auch in 12 Fremdsprachen."
+  },
+  "bewertungen": {
+    "anzeigen": true,
+    "titel": "Bewertungen",
+    "note": "4,7",
+    "zeile_1": "243 Google-Bewertungen",
+    "zeile_1_rest": "für Ricklingen",
+    "zeile_2": "Hemmingen 4,7 und Laatzen 4,8 Sterne",
+    "rezensionen": [
+      {
+        "text": "Platzhalter",
+        "name": "Platzhalter",
+        "quelle": "Google-Rezension",
+        "sterne": 5
+      },
+      {
+        "text": "Platzhalter",
+        "name": "Platzhalter",
+        "quelle": "Google-Rezension",
+        "sterne": 5
+      },
+      {
+        "text": "Platzhalter",
+        "name": "Platzhalter",
+        "quelle": "Google-Rezension",
+        "sterne": 5
+      },
+      {
+        "text": "Platzhalter",
+        "name": "Platzhalter",
+        "quelle": "Google-Rezension",
+        "sterne": 5
+      },
+      {
+        "text": "Platzhalter",
+        "name": "Platzhalter",
+        "quelle": "Google-Rezension",
+        "sterne": 5
+      },
+      {
+        "text": "Platzhalter",
+        "name": "Platzhalter",
+        "quelle": "Google-Rezension",
+        "sterne": 5
+      },
+      {
+        "text": "Platzhalter",
+        "name": "Platzhalter",
+        "quelle": "Google-Rezension",
+        "sterne": 5
+      }
+    ]
+  },
+  "kontakt": {
+    "titel": "Kontakt",
+    "text": "Schreib uns, ruf an oder komm vorbei.",
+    "standorte_titel": "Unsere Standorte",
+    "formular_titel": "Nachricht schreiben",
+    "formular_text": "Wir melden uns schnell zurück."
+  }
+}

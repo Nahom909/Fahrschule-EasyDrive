@@ -1,0 +1,15 @@
+{
+  "firmenname": "Fahrschule EasyDrive",
+  "logo": "/assets/img/logo-weiss.webp",
+  "inhaber": "Adib Husseyin Maran",
+  "strasse": "Ricklinger Stadtweg 45",
+  "plz": "30459",
+  "ort": "Hannover",
+  "telefon": "0511 76 82 20 60",
+  "telefon_hinweis": "Zentrale in Ricklingen",
+  "whatsapp": "0162 97 91 401",
+  "email": "fahrschuleeasydrive@hotmail.com",
+  "footer_text": "Fahrschule in Hannover-Ricklingen, Hemmingen, Laatzen und Hannover-List.",
+  "anmelden_text": "Jetzt anmelden",
+  "teilen_bild": "/assets/img/teilen.jpg"
+}

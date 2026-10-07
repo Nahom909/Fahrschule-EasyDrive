@@ -1,0 +1,79 @@
+{
+  "reihenfolge": 3,
+  "name": "Laatzen",
+  "kurzname": "Laatzen",
+  "region": "Region Hannover",
+  "strasse": "Hildesheimer Str. 70",
+  "plz": "30880",
+  "ort": "Laatzen",
+  "telefon": "0511 53 07 24 91",
+  "whatsapp": "0173 88 46 926",
+  "email": "fahrschuleeasydrivela@outlook.de",
+  "neu": false,
+  "neu_text": "",
+  "kartentext": "Direkt an der Haltestelle Laatzen/Eichstraße.",
+  "einleitung": "Direkt an der Stadtbahnhaltestelle Laatzen/Eichstraße, seit 2021.",
+  "klassen_text": "",
+  "klassen": [
+    "B",
+    "B-Automatik",
+    "B197",
+    "BF17"
+  ],
+  "buerozeiten": [
+    {
+      "bezeichnung": "Montag",
+      "tage": [
+        "1"
+      ],
+      "von": "15:00",
+      "bis": "18:00"
+    },
+    {
+      "bezeichnung": "Dienstag",
+      "tage": [
+        "2"
+      ],
+      "von": "15:00",
+      "bis": "18:30"
+    },
+    {
+      "bezeichnung": "Mittwoch",
+      "tage": [
+        "3"
+      ],
+      "von": "15:00",
+      "bis": "18:00"
+    },
+    {
+      "bezeichnung": "Donnerstag",
+      "tage": [
+        "4"
+      ],
+      "von": "15:00",
+      "bis": "18:30"
+    },
+    {
+      "bezeichnung": "Freitag",
+      "tage": [
+        "5"
+      ],
+      "von": "12:00",
+      "bis": "17:00"
+    },
+    {
+      "bezeichnung": "Sa. und So.",
+      "tage": [
+        "6",
+        "0"
+      ],
+      "von": "",
+      "bis": ""
+    }
+  ],
+  "theorie_tage": "Di. und Do.",
+  "theorie_zeit": "18:30 - 20:00",
+  "bild_karte": "/assets/img/standort-laatzen.webp",
+  "breitengrad": 52.3146987,
+  "laengengrad": 9.7917277
+}

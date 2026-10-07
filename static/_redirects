@@ -1,0 +1,9 @@
+# Alte Adressen der Jimdo-Seite auf die neuen Abschnitte umleiten
+/das-sind-wir           /#ueber-uns     301
+/das-sind-wir/          /#ueber-uns     301
+/preise                 /#preise        301
+/preise/                /#preise        301
+/cookie-einstellungen   /datenschutz/   301
+/cookie-einstellungen/  /datenschutz/   301
+/widerruf               /#kontakt       301
+/widerruf/              /#kontakt       301

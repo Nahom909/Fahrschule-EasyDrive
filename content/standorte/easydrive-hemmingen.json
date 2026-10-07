@@ -1,0 +1,84 @@
+{
+  "reihenfolge": 2,
+  "name": "Hemmingen",
+  "kurzname": "Hemmingen",
+  "region": "Region Hannover",
+  "strasse": "Deveser Str. 2",
+  "plz": "30966",
+  "ort": "Hemmingen",
+  "telefon": "0511 72 70 09 67",
+  "whatsapp": "0178 26 10 254",
+  "email": "fahrschuleeasydrivehem@hotmail.com",
+  "neu": false,
+  "neu_text": "",
+  "kartentext": "Im Zentrum von Hemmingen. Auch Motorrad und Anhänger.",
+  "einleitung": "Im Zentrum von Hemmingen. Hier bilden wir auch auf Motorrad und Anhänger aus.",
+  "klassen_text": "",
+  "klassen": [
+    "B",
+    "B-Automatik",
+    "B197",
+    "BF17",
+    "BE",
+    "A",
+    "A2",
+    "A1",
+    "B196"
+  ],
+  "buerozeiten": [
+    {
+      "bezeichnung": "Montag",
+      "tage": [
+        "1"
+      ],
+      "von": "12:00",
+      "bis": "18:00"
+    },
+    {
+      "bezeichnung": "Dienstag",
+      "tage": [
+        "2"
+      ],
+      "von": "12:00",
+      "bis": "18:30"
+    },
+    {
+      "bezeichnung": "Mittwoch",
+      "tage": [
+        "3"
+      ],
+      "von": "12:00",
+      "bis": "18:00"
+    },
+    {
+      "bezeichnung": "Donnerstag",
+      "tage": [
+        "4"
+      ],
+      "von": "12:00",
+      "bis": "18:30"
+    },
+    {
+      "bezeichnung": "Freitag",
+      "tage": [
+        "5"
+      ],
+      "von": "12:00",
+      "bis": "17:00"
+    },
+    {
+      "bezeichnung": "Sa. und So.",
+      "tage": [
+        "6",
+        "0"
+      ],
+      "von": "",
+      "bis": ""
+    }
+  ],
+  "theorie_tage": "Di. und Do.",
+  "theorie_zeit": "18:30 - 20:00",
+  "bild_karte": "/assets/img/standort-hemmingen.webp",
+  "breitengrad": 52.324678,
+  "laengengrad": 9.7232096
+}

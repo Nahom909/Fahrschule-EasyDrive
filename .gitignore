@@ -1,0 +1,9 @@
+dist/
+.bildcache/
+__pycache__/
+*.pyc
+_*_tmp.html
+Thumbs.db
+desktop.ini
+.DS_Store
+_pruefung/

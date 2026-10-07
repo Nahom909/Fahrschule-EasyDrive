@@ -1,0 +1,79 @@
+{
+  "reihenfolge": 4,
+  "name": "Hannover-List",
+  "kurzname": "List",
+  "region": "Hannover",
+  "strasse": "Lister Kirchweg 112",
+  "plz": "30177",
+  "ort": "Hannover",
+  "telefon": "0511 97 81 84 88",
+  "whatsapp": "0176 45 34 88 83",
+  "email": "fahrschuleeasydrivevier@hotmail.com",
+  "neu": true,
+  "neu_text": "Neu seit Frühjahr 2026",
+  "kartentext": "An den Vier Grenzen, neu seit Frühjahr 2026.",
+  "einleitung": "Unsere neue Filiale an den Vier Grenzen, seit Frühjahr 2026.",
+  "klassen_text": "",
+  "klassen": [
+    "B",
+    "B-Automatik",
+    "B197",
+    "BF17"
+  ],
+  "buerozeiten": [
+    {
+      "bezeichnung": "Montag",
+      "tage": [
+        "1"
+      ],
+      "von": "15:00",
+      "bis": "18:30"
+    },
+    {
+      "bezeichnung": "Dienstag",
+      "tage": [
+        "2"
+      ],
+      "von": "15:00",
+      "bis": "18:00"
+    },
+    {
+      "bezeichnung": "Mittwoch",
+      "tage": [
+        "3"
+      ],
+      "von": "15:00",
+      "bis": "18:00"
+    },
+    {
+      "bezeichnung": "Donnerstag",
+      "tage": [
+        "4"
+      ],
+      "von": "15:00",
+      "bis": "18:30"
+    },
+    {
+      "bezeichnung": "Freitag",
+      "tage": [
+        "5"
+      ],
+      "von": "15:00",
+      "bis": "17:00"
+    },
+    {
+      "bezeichnung": "Sa. und So.",
+      "tage": [
+        "6",
+        "0"
+      ],
+      "von": "",
+      "bis": ""
+    }
+  ],
+  "theorie_tage": "Mo. und Do.",
+  "theorie_zeit": "18:30 - 20:00",
+  "bild_karte": "/assets/img/standort-list.webp",
+  "breitengrad": 52.3954659,
+  "laengengrad": 9.762415
+}

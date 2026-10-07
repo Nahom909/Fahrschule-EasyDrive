@@ -1,0 +1,328 @@
+# Decap CMS: Inhalte der Fahrschule-EasyDrive-Website
+# Jede Änderung wird ins Git-Repository gespeichert, Netlify baut die Seite danach neu (ca. 1 Minute).
+
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: "Neu: {{collection}} „{{slug}}“"
+    update: "Geändert: {{collection}} „{{slug}}“"
+    delete: "Gelöscht: {{collection}} „{{slug}}“"
+    uploadMedia: "Bild hochgeladen: {{path}}"
+    deleteMedia: "Bild gelöscht: {{path}}"
+
+# Lokal testen: im Projektordner „npx decap-server“ starten und /admin/ über den lokalen Server öffnen
+local_backend: true
+
+locale: de
+site_url: https://www.fahrschule-easydrive.org
+display_url: https://www.fahrschule-easydrive.org
+
+media_folder: static/assets/img/uploads
+public_folder: /assets/img/uploads
+
+collections:
+
+  # ------------------------------------------------------------------ Seiten
+  - name: seiten
+    label: Seiten
+    label_singular: Seite
+    description: "Texte und Bilder der einzelnen Seiten."
+    format: json
+    editor:
+      preview: false
+    files:
+
+      - name: startseite
+        label: Startseite
+        file: content/startseite.json
+        fields:
+          - { label: "Seitentitel (Google)", name: seo_titel, widget: string }
+          - { label: "Beschreibung (Google)", name: seo_beschreibung, widget: text }
+
+          - label: "Erster Bildschirm"
+            name: hero
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Überschrift, weiß (z. B. Fahrschule)", name: titel, widget: string }
+              - { label: "Überschrift, gelb (z. B. EasyDrive)", name: titel_akzent, widget: string, required: false }
+              - { label: "Text unter dem Auto", name: text, widget: text, required: false, hint: "Ein kurzer Satz." }
+              - { label: "Knopf zu den Standorten", name: knopf_standorte, widget: string }
+
+          - label: "Leistungen"
+            name: leistungen
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Überschrift", name: titel, widget: string }
+              - { label: "Text unter der Überschrift", name: text, widget: text, required: false }
+              - { label: "Großes Bild (füllt den ganzen Abschnitt)", name: bild, widget: image, hint: "Querformat, am besten auf schwarzem Hintergrund." }
+              - label: "Bildausschnitt"
+                name: bild_position
+                widget: select
+                options:
+                  - { label: "Mitte", value: "50% 50%" }
+                  - { label: "Oben", value: "50% 15%" }
+                  - { label: "Unten", value: "50% 85%" }
+                  - { label: "Links", value: "20% 50%" }
+                  - { label: "Rechts", value: "80% 50%" }
+              - label: "Gruppen"
+                name: gruppen
+                widget: list
+                label_singular: Gruppe
+                summary: "{{fields.titel}}"
+                fields:
+                  - { label: "Titel", name: titel, widget: string }
+                  - label: "Symbol"
+                    name: icon
+                    widget: select
+                    options:
+                      - { label: "Auto", value: car }
+                      - { label: "Motorrad", value: motorcycle }
+                      - { label: "Lenkrad", value: steering-wheel }
+                  - label: "Führerscheinklassen"
+                    name: klassen
+                    widget: list
+                    label_singular: Klasse
+                    summary: "{{fields.code}}: {{fields.titel}}"
+                    fields:
+                      - { label: "Klasse (z. B. B197)", name: code, widget: string }
+                      - { label: "Kurztitel", name: titel, widget: string }
+                      - { label: "Beschreibung", name: text, widget: text }
+                      - { label: "Wo? (z. B. „An allen Standorten“)", name: ort, widget: string, required: false }
+              - label: "Gelber Hinweis-Kasten"
+                name: hinweis
+                widget: object
+                collapsed: true
+                fields:
+                  - { label: "Anzeigen", name: anzeigen, widget: boolean, default: true }
+                  - { label: "Überschrift", name: titel, widget: string }
+                  - { label: "Text", name: text, widget: text, required: false }
+                  - { label: "Linktext", name: link_text, widget: string }
+                  - label: "Verlinkter Standort"
+                    name: standort
+                    widget: relation
+                    collection: standorte
+                    value_field: "{{slug}}"
+                    search_fields: [name]
+                    display_fields: [name]
+
+          - label: "Preise"
+            name: preise
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Überschrift", name: titel, widget: string }
+              - { label: "Text", name: text, widget: string, required: false }
+              - label: "Preiskarten"
+                name: karten
+                widget: list
+                label_singular: Preiskarte
+                summary: "{{fields.titel}} ({{fields.klassen}})"
+                fields:
+                  - { label: "Klassen", name: klassen, widget: string }
+                  - { label: "Titel", name: titel, widget: string }
+                  - label: "Posten"
+                    name: posten
+                    widget: list
+                    label_singular: Posten
+                    summary: "{{fields.name}}: {{fields.preis}}"
+                    fields:
+                      - { label: "Bezeichnung", name: name, widget: string }
+                      - { label: "Zusatz (klein darunter)", name: hinweis, widget: string, required: false }
+                      - { label: "Preis (z. B. 55 €)", name: preis, widget: string }
+              - label: "Paket (gelber Kasten)"
+                name: paket
+                widget: object
+                collapsed: true
+                fields:
+                  - { label: "Anzeigen", name: anzeigen, widget: boolean, default: true }
+                  - { label: "Klasse", name: klassen, widget: string }
+                  - { label: "Titel", name: titel, widget: string }
+                  - { label: "Text", name: text, widget: text }
+                  - { label: "Preis", name: preis, widget: string }
+                  - { label: "Zusatz unter dem Preis", name: preis_hinweis, widget: string, required: false }
+              - { label: "Hinweise unter den Preisen", name: hinweise, widget: list, field: { label: Hinweis, name: hinweis, widget: string } }
+
+          - label: "Über uns (Bildergalerie)"
+            name: ueber_uns
+            widget: object
+            collapsed: true
+            fields:
+              - label: "Galerie"
+                name: galerie
+                widget: list
+                label_singular: Bild
+                summary: "{{fields.alt}}"
+                hint: "Fünf Bilder ergeben das schönste Raster. Das erste Bild wird groß angezeigt."
+                fields:
+                  - { label: "Bild", name: bild, widget: image }
+                  - { label: "Beschreibung für Blinde und Google", name: alt, widget: string }
+                  - label: "Bildausschnitt"
+                    name: ausschnitt
+                    widget: select
+                    default: "50% 50%"
+                    options:
+                      - { label: "Mitte", value: "50% 50%" }
+                      - { label: "Oben", value: "50% 15%" }
+                      - { label: "Unten", value: "50% 85%" }
+                      - { label: "Links", value: "20% 50%" }
+                      - { label: "Rechts", value: "80% 50%" }
+                      - { label: "Filialfoto (etwas unten)", value: "50% 60%" }
+                      - { label: "Logo auf dem Auto", value: "45% 45%" }
+                      - { label: "Logo auf dem weißen Auto", value: "47% 45%" }
+                      - { label: "Leuchtschild", value: "40% 40%" }
+              - { label: "Überschrift Sprachen", name: sprachen_titel, widget: string }
+              - { label: "Sprachen", name: sprachen, widget: list, field: { label: Sprache, name: sprache, widget: string } }
+              - { label: "Hinweis zu den Sprachen", name: sprachen_hinweis, widget: string, required: false }
+
+          - label: "Bewertungen"
+            name: bewertungen
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Abschnitt anzeigen", name: anzeigen, widget: boolean, default: true }
+              - { label: "Überschrift", name: titel, widget: string }
+              - { label: "Note (z. B. 4,7)", name: note, widget: string }
+              - { label: "Zeile 1, fett", name: zeile_1, widget: string }
+              - { label: "Zeile 1, normal", name: zeile_1_rest, widget: string, required: false }
+              - { label: "Zeile 2", name: zeile_2, widget: string, required: false }
+              - label: "Rezensionen"
+                name: rezensionen
+                widget: list
+                label_singular: Rezension
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: "Text", name: text, widget: text, hint: "Höchstens drei Zeilen." }
+                  - { label: "Name", name: name, widget: string }
+                  - { label: "Quelle", name: quelle, widget: string, default: "Google-Rezension" }
+                  - { label: "Sterne", name: sterne, widget: number, value_type: int, min: 1, max: 5, default: 5 }
+
+          - label: "Kontakt"
+            name: kontakt
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Überschrift", name: titel, widget: string }
+              - { label: "Text", name: text, widget: text }
+              - { label: "Überschrift Standortliste", name: standorte_titel, widget: string }
+              - { label: "Formular: Überschrift", name: formular_titel, widget: string }
+              - { label: "Formular: Text", name: formular_text, widget: string }
+
+      - name: standorte_seite
+        label: Standorte (Übersichtsseite)
+        file: content/standorte-seite.json
+        fields:
+          - { label: "Seitentitel (Google)", name: seo_titel, widget: string }
+          - { label: "Beschreibung (Google)", name: seo_beschreibung, widget: text }
+          - { label: "Überschrift", name: titel, widget: string }
+          - { label: "Text", name: text, widget: text }
+          - { label: "Titelbild", name: bild, widget: image, hint: "Breites Querformat, mindestens 2000 Pixel breit." }
+          - { label: "Titelbild: Beschreibung", name: bild_alt, widget: string }
+          - { label: "Linktext auf den Karten", name: link_text, widget: string }
+          - { label: "Titelbild aller Standortseiten", name: standort_bild, widget: image, hint: "Erscheint oben auf jeder einzelnen Standortseite." }
+          - { label: "Überschrift „Weitere Standorte“", name: weitere_titel, widget: string }
+
+      - name: impressum
+        label: Impressum
+        file: content/impressum.json
+        fields:
+          - { label: "Seitentitel (Google)", name: seo_titel, widget: string }
+          - { label: "Überschrift", name: titel, widget: string }
+          - { label: "Inhalt", name: inhalt, widget: markdown, hint: "Ein Zitat-Absatz („>“) erscheint als gelber Hinweis-Kasten." }
+
+      - name: datenschutz
+        label: Datenschutz
+        file: content/datenschutz.json
+        fields:
+          - { label: "Seitentitel (Google)", name: seo_titel, widget: string }
+          - { label: "Überschrift", name: titel, widget: string }
+          - { label: "Inhalt", name: inhalt, widget: markdown, hint: "Ein Zitat-Absatz („>“) erscheint als gelber Hinweis-Kasten." }
+
+  # ------------------------------------------------------------------ Standorte
+  - name: standorte
+    label: Standorte
+    label_singular: Standort
+    description: "Jeder Standort bekommt automatisch eine eigene Unterseite mit Kontaktformular."
+    folder: content/standorte
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "easydrive-{{kurzname}}"
+    identifier_field: name
+    summary: "{{name}}, {{strasse}}"
+    sortable_fields: [reihenfolge, name]
+    editor:
+      preview: false
+    fields:
+      - { label: "Name (z. B. Hannover-Ricklingen)", name: name, widget: string }
+      - { label: "Kurzname (z. B. Ricklingen)", name: kurzname, widget: string, hint: "Wird auch für die Internetadresse verwendet." }
+      - { label: "Region (klein über dem Namen)", name: region, widget: string }
+      - { label: "Reihenfolge", name: reihenfolge, widget: number, value_type: int, default: 9 }
+      - { label: "Straße und Hausnummer", name: strasse, widget: string }
+      - { label: "Postleitzahl", name: plz, widget: string, pattern: ["^\\d{5}$", "Bitte fünf Ziffern eingeben."] }
+      - { label: "Ort", name: ort, widget: string }
+      - { label: "Telefon", name: telefon, widget: string, hint: "Zum Beispiel 0511 76 82 20 60" }
+      - { label: "WhatsApp-Nummer", name: whatsapp, widget: string, hint: "Zum Beispiel 0162 97 91 401" }
+      - { label: "E-Mail (hierhin gehen die Nachrichten aus dem Formular)", name: email, widget: string, pattern: ["^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", "Bitte eine gültige E-Mail-Adresse eingeben."] }
+      - { label: "Als neu markieren", name: neu, widget: boolean, default: false }
+      - { label: "Text der Neu-Markierung", name: neu_text, widget: string, required: false }
+      - { label: "Kurztext für die Übersichtskarte", name: kartentext, widget: text }
+      - { label: "Einleitung auf der Standortseite", name: einleitung, widget: text }
+      - { label: "Text zu den Führerscheinklassen (optional)", name: klassen_text, widget: text, required: false }
+      - { label: "Führerscheinklassen", name: klassen, widget: list, field: { label: Klasse, name: klasse, widget: string } }
+      - label: "Bürozeiten"
+        name: buerozeiten
+        widget: list
+        label_singular: Zeile
+        summary: "{{fields.bezeichnung}}: {{fields.von}} - {{fields.bis}}"
+        hint: "Für geschlossene Tage die Uhrzeiten leer lassen."
+        fields:
+          - { label: "Bezeichnung (z. B. Montag oder Mo. bis Do.)", name: bezeichnung, widget: string }
+          - label: "Gilt für"
+            name: tage
+            widget: select
+            multiple: true
+            options:
+              - { label: "Montag", value: "1" }
+              - { label: "Dienstag", value: "2" }
+              - { label: "Mittwoch", value: "3" }
+              - { label: "Donnerstag", value: "4" }
+              - { label: "Freitag", value: "5" }
+              - { label: "Samstag", value: "6" }
+              - { label: "Sonntag", value: "0" }
+          - { label: "Von (z. B. 10:00)", name: von, widget: string, required: false, pattern: ["^([01]\\d|2[0-3]):[0-5]\\d$|^$", "Bitte im Format 10:00 eingeben."] }
+          - { label: "Bis (z. B. 18:30)", name: bis, widget: string, required: false, pattern: ["^([01]\\d|2[0-3]):[0-5]\\d$|^$", "Bitte im Format 18:30 eingeben."] }
+      - { label: "Theorie: Tage", name: theorie_tage, widget: string, required: false }
+      - { label: "Theorie: Uhrzeit", name: theorie_zeit, widget: string, required: false }
+      - { label: "Bild für die Übersichtskarte (Hochformat)", name: bild_karte, widget: image }
+      - { label: "Breitengrad (für Google, optional)", name: breitengrad, widget: number, value_type: float, required: false }
+      - { label: "Längengrad (für Google, optional)", name: laengengrad, widget: number, value_type: float, required: false }
+
+  # ------------------------------------------------------------------ Einstellungen
+  - name: einstellungen
+    label: Einstellungen
+    description: "Logo, Hauptkontakt und Texte, die auf allen Seiten erscheinen."
+    format: json
+    editor:
+      preview: false
+    files:
+      - name: allgemein
+        label: Allgemein
+        file: content/einstellungen.json
+        fields:
+          - { label: "Firmenname", name: firmenname, widget: string }
+          - { label: "Logo (weiß, transparenter Hintergrund)", name: logo, widget: image }
+          - { label: "Inhaber", name: inhaber, widget: string }
+          - { label: "Straße (Hauptsitz)", name: strasse, widget: string }
+          - { label: "Postleitzahl (Hauptsitz)", name: plz, widget: string }
+          - { label: "Ort (Hauptsitz)", name: ort, widget: string }
+          - { label: "Telefon (Zentrale)", name: telefon, widget: string }
+          - { label: "Zusatz unter der Telefonnummer", name: telefon_hinweis, widget: string }
+          - { label: "WhatsApp (Zentrale)", name: whatsapp, widget: string }
+          - { label: "E-Mail (Formular auf der Startseite)", name: email, widget: string }
+          - { label: "Text in der Fußzeile", name: footer_text, widget: text }
+          - { label: "Beschriftung des Anmelde-Knopfs", name: anmelden_text, widget: string }
+          - { label: "Vorschaubild beim Teilen (WhatsApp, Facebook)", name: teilen_bild, widget: image }

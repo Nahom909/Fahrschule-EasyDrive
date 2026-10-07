@@ -1,0 +1,58 @@
+{
+  "reihenfolge": 1,
+  "name": "Hannover-Ricklingen",
+  "kurzname": "Ricklingen",
+  "region": "Hannover",
+  "strasse": "Ricklinger Stadtweg 45",
+  "plz": "30459",
+  "ort": "Hannover",
+  "telefon": "0511 76 82 20 60",
+  "whatsapp": "0162 97 91 401",
+  "email": "fahrschuleeasydrive@hotmail.com",
+  "neu": false,
+  "neu_text": "",
+  "kartentext": "Unser erster Standort, seit 2018.",
+  "einleitung": "Unser erster Standort, seit 2018.",
+  "klassen_text": "",
+  "klassen": [
+    "B",
+    "B-Automatik",
+    "B197",
+    "BF17"
+  ],
+  "buerozeiten": [
+    {
+      "bezeichnung": "Mo. bis Do.",
+      "tage": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "von": "10:00",
+      "bis": "18:30"
+    },
+    {
+      "bezeichnung": "Freitag",
+      "tage": [
+        "5"
+      ],
+      "von": "10:00",
+      "bis": "17:00"
+    },
+    {
+      "bezeichnung": "Sa. und So.",
+      "tage": [
+        "6",
+        "0"
+      ],
+      "von": "",
+      "bis": ""
+    }
+  ],
+  "theorie_tage": "Mo., Di. und Mi.",
+  "theorie_zeit": "18:30 - 20:00",
+  "bild_karte": "/assets/img/standort-ricklingen.webp",
+  "breitengrad": 52.3475313,
+  "laengengrad": 9.7235078
+}
