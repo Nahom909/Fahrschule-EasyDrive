@@ -34,7 +34,7 @@ STATIC = BASE / "static"
 DIST = BASE / "dist"
 ICONS = Path(__file__).resolve().parent / "icons"
 SITE = "https://www.fahrschule-easydrive.org"
-VERSION = "14"  # bei Änderungen an CSS/JS hochzählen
+VERSION = "15"  # bei Änderungen an CSS/JS hochzählen
 
 esc = html.escape
 WARNINGS: list[str] = []

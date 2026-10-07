@@ -760,7 +760,7 @@ h3 {
   font-stretch: 120%;
   line-height: 1;
 }
-.sterne { display: inline-flex; gap: 3px; color: var(--hi); }
+.sterne { display: inline-flex; gap: 3px; color: #fdc104; } /* Sterne bleiben gelb */
 .sterne .icon { width: 1.15em; height: 1.15em; }
 .rating-text { display: grid; gap: 6px; font-size: 0.9375rem; color: var(--muted); }
 .rating-text strong { color: var(--text); font-weight: 600; }
