@@ -34,7 +34,7 @@ STATIC = BASE / "static"
 DIST = BASE / "dist"
 ICONS = Path(__file__).resolve().parent / "icons"
 SITE = "https://www.fahrschule-easydrive.org"
-VERSION = "19"  # bei Änderungen an CSS/JS hochzählen
+VERSION = "22"  # bei Änderungen an CSS/JS hochzählen
 
 esc = html.escape
 WARNINGS: list[str] = []
@@ -239,7 +239,7 @@ def head(root: str, title: str, description: str, path: str, *, noindex: bool = 
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(description)}">{robots}
   <link rel="canonical" href="{canonical}">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
   <meta property="og:site_name" content="{esc(S['firmenname'])}">
@@ -273,7 +273,7 @@ def header(root: str, active: str = "", solid: bool = False) -> str:
 <header class="site-header{solid_cls}" data-header>
   <div class="wrap header-inner">
     <a class="brand" href="{home}" aria-label="{esc(S['firmenname'])}, zur Startseite">
-      <img src="{rel(root, S['logo'])}" alt="{esc(S['firmenname'])}" width="779" height="438">
+      <img src="{rel(root, S.get('logo_dunkel') or S['logo'])}" alt="{esc(S['firmenname'])}" width="779" height="438">
     </a>
     <nav class="nav" aria-label="Hauptnavigation">
       <ul class="nav-list">
@@ -559,88 +559,35 @@ def page_index() -> str:
         ],
     }
 
-    # Bildfolge der Kamerafahrt (erzeugt mit _quelle/frames.py)
-    def seq_satz(ordner: str) -> dict | None:
-        mf = STATIC / "assets" / ordner / "manifest.json"
-        if not mf.exists():
-            return None
-        m = json.loads(mf.read_text(encoding="utf-8"))
-        basis = "/assets/" + ordner + "/"
-        return {
-            "w": m["breite"],
-            "h": m["hoehe"],
-            "frames": [rel(root, basis + f["src"]) for f in m["frames"]],
-            # leichte Fassung fürs Handy (kleinere Bilder, gleiche Anzahl)
-            "leicht": [rel(root, basis + m["leicht"] + f["src"]) for f in m["frames"]] if m.get("leicht") else None,
-            "typ": m.get("typ", "folge"),
-            "bbox": [f.get("bbox", [0, 0, 1, 1]) for f in m["frames"]],
-            "schnitt": [f.get("schnitt", "") for f in m["frames"]],
-            "zeiten": m.get("zeiten") or [i / max(1, len(m["frames"]) - 1) for i in range(len(m["frames"]))],
-            # Lage des Autos im Leistungsbild (Anteile), damit das letzte Bild dort ankommt
-            "endeBbox": m.get("ende_bbox", [0.1, 0.02, 0.9, 0.99]),
-            "bandStart": m.get("band_start"),
-            "bandEnde": m.get("band_ende"),
-        }
-
-    quer = seq_satz("seq")
-    hoch = seq_satz("seq-hoch")  # optional: eigenes Hochformat-Video fürs Handy
-    seq_cfg = {"quer": quer, "hoch": hoch}
-    seq = {"breite": quer["w"], "hoehe": quer["h"]}
-    erstes = quer["frames"][0]
-    handy = "(max-width: 900px)"
-    hochkant = "(max-width: 900px) and (orientation: portrait)"
-    quellen = ""
-    if hoch:
-        quellen += f'<source media="{hochkant}" srcset="{(hoch["leicht"] or hoch["frames"])[0]}" width="{hoch["w"]}" height="{hoch["h"]}">'
-    if quer["leicht"]:
-        quellen += f'<source media="{handy}" srcset="{quer["leicht"][0]}">'
-    preload = f'\n  <link rel="preload" as="image" href="{erstes}" fetchpriority="high" media="(min-width: 901px)">'
-    if quer["leicht"] and not hoch:
-        preload += f'\n  <link rel="preload" as="image" href="{quer["leicht"][0]}" fetchpriority="high" media="{handy}">'
-    car_a = f'<picture>{quellen}<img class="car-a" src="{erstes}" alt="" width="{quer["w"]}" height="{quer["h"]}" fetchpriority="high" decoding="async"></picture>'
-    car_b = img(root, lei["bild"], (1280, 1920, 2560), "100vw", cls="car-b", attrs='decoding="async"')
-    if hoch and (STATIC / "assets" / "img" / "leistungen-film-hoch.webp").exists():
-        hb = pic("/assets/img/leistungen-film-hoch.webp", (720, 1080))
-        car_b = f'<picture><source media="{hochkant}" srcset="{", ".join(f"{rel(root, u)} {w}w" for w, u in hb["srcset"])}" sizes="100vw">{car_b}</picture>'
-    pos = f'--b-pos:{esc(lei.get("bild_position") or "50% 50%")}'
     akzent = f' <span class="accent">{esc(hero["titel_akzent"])}</span>' if hero.get("titel_akzent") else ""
-    seq_attr = esc(json.dumps(seq_cfg, separators=(",", ":")))
+    hero_bild = img(root, hero["bild"], (900, 1400, 2000), "(max-width: 900px) 100vw, 50vw", hero.get("bild_alt", ""), cls="hero-img", attrs='fetchpriority="high" decoding="async"')
 
-    return f"""{head(root, HOME["seo_titel"], HOME["seo_beschreibung"], "", preload=preload, extra=chr(10) + "  " + TOKEN_REDIRECT + chr(10) + "  " + json_ld(ld))}
+    return f"""{head(root, HOME["seo_titel"], HOME["seo_beschreibung"], "", extra=chr(10) + "  " + TOKEN_REDIRECT + chr(10) + "  " + json_ld(ld))}
 {header(root, "home")}
 <main id="inhalt">
-  <div class="journey{' hat-hoch' if hoch else ''}" data-journey data-seq="{seq_attr}" style="{pos}">
-    <div class="stage-wrap">
-      <div class="stage">
-        {car_b}
-        <div class="stage-scrim" aria-hidden="true"></div>
-        <div class="stage-shade" aria-hidden="true"></div>
-        <canvas class="seq" aria-hidden="true"></canvas>
-        {car_a}
-        <section class="hero-frame" aria-labelledby="hero-titel">
-          <h1 id="hero-titel" class="hero-fade">{esc(hero["titel"])}{akzent}</h1>
-          <div class="hero-bottom hero-fade">
-            {opt_p(hero.get("text", ""))}
-            <div class="hero-actions">
-              <a class="btn" href="#kontakt">{esc(S["anmelden_text"])} {icon("arrow-right", "icon-arrow")}</a>
-              <a class="btn btn-ghost" href="standorte/">{esc(hero["knopf_standorte"])}</a>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-    <div class="hero-space" aria-hidden="true"></div>
-
-    <section class="leistungen" id="leistungen" aria-labelledby="leistungen-titel">
-      <div class="wrap">
-        <div class="section-head">
-          <h2 id="leistungen-titel">{esc(lei["titel"])}</h2>
-          {opt_p(lei.get("text", ""))}
+  <section class="hero" aria-labelledby="hero-titel">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <h1 id="hero-titel">{esc(hero["titel"])}{akzent}</h1>
+        {opt_p(hero.get("text", ""))}
+        <div class="hero-actions">
+          <a class="btn" href="#kontakt">{esc(S["anmelden_text"])} {icon("arrow-right", "icon-arrow")}</a>
+          <a class="btn btn-ghost" href="standorte/">{esc(hero["knopf_standorte"])}</a>
         </div>
-{chr(10).join(gruppen)}
       </div>
-    </section>
-  </div>
+      <div class="hero-bild">{hero_bild}</div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="leistungen" aria-labelledby="leistungen-titel">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="leistungen-titel">{esc(lei["titel"])}</h2>
+        {opt_p(lei.get("text", ""))}
+      </div>
+{chr(10).join(gruppen)}
+    </div>
+  </section>
 
   <section class="section" id="preise" aria-labelledby="preise-titel">
     <div class="wrap">

@@ -5,13 +5,13 @@
     "titel": "Fahrschule",
     "titel_akzent": "EasyDrive",
     "text": "Auto, Motorrad und Anhänger. Viermal in Hannover und Region.",
-    "knopf_standorte": "Standorte"
+    "knopf_standorte": "Standorte",
+    "bild": "/assets/img/galerie-filiale.webp",
+    "bild_alt": "Filiale der Fahrschule EasyDrive mit zwei Fahrschulautos"
   },
   "leistungen": {
     "titel": "Leistungen",
     "text": "",
-    "bild": "/assets/img/leistungen-film.webp",
-    "bild_position": "50% 50%",
     "gruppen": [
       {
         "titel": "Auto und Anhänger",
@@ -222,7 +222,7 @@
     "sprachen_hinweis": "Theorieprüfung auch in 12 Fremdsprachen."
   },
   "bewertungen": {
-    "anzeigen": true,
+    "anzeigen": false,
     "titel": "Bewertungen",
     "note": "4,7",
     "zeile_1": "243 Google-Bewertungen",

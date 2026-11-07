@@ -45,10 +45,12 @@ collections:
             widget: object
             collapsed: true
             fields:
-              - { label: "Überschrift, weiß (z. B. Fahrschule)", name: titel, widget: string }
-              - { label: "Überschrift, gelb (z. B. EasyDrive)", name: titel_akzent, widget: string, required: false }
-              - { label: "Text unter dem Auto", name: text, widget: text, required: false, hint: "Ein kurzer Satz." }
+              - { label: "Überschrift (z. B. Fahrschule)", name: titel, widget: string }
+              - { label: "Überschrift, zweite Zeile in Blau (z. B. EasyDrive)", name: titel_akzent, widget: string, required: false }
+              - { label: "Text unter der Überschrift", name: text, widget: text, required: false, hint: "Ein kurzer Satz." }
               - { label: "Knopf zu den Standorten", name: knopf_standorte, widget: string }
+              - { label: "Titelbild", name: bild, widget: image, hint: "Querformat, echtes Foto." }
+              - { label: "Titelbild: Beschreibung", name: bild_alt, widget: string }
 
           - label: "Leistungen"
             name: leistungen
@@ -57,16 +59,6 @@ collections:
             fields:
               - { label: "Überschrift", name: titel, widget: string }
               - { label: "Text unter der Überschrift", name: text, widget: text, required: false }
-              - { label: "Großes Bild (füllt den ganzen Abschnitt)", name: bild, widget: image, hint: "Querformat, am besten auf schwarzem Hintergrund." }
-              - label: "Bildausschnitt"
-                name: bild_position
-                widget: select
-                options:
-                  - { label: "Mitte", value: "50% 50%" }
-                  - { label: "Oben", value: "50% 15%" }
-                  - { label: "Unten", value: "50% 85%" }
-                  - { label: "Links", value: "20% 50%" }
-                  - { label: "Rechts", value: "80% 50%" }
               - label: "Gruppen"
                 name: gruppen
                 widget: list
@@ -314,7 +306,8 @@ collections:
         file: content/einstellungen.json
         fields:
           - { label: "Firmenname", name: firmenname, widget: string }
-          - { label: "Logo (weiß, transparenter Hintergrund)", name: logo, widget: image }
+          - { label: "Logo weiß (Fußzeile, transparenter Hintergrund)", name: logo, widget: image }
+          - { label: "Logo dunkel (Kopfzeile, transparenter Hintergrund)", name: logo_dunkel, widget: image }
           - { label: "Inhaber", name: inhaber, widget: string }
           - { label: "Straße (Hauptsitz)", name: strasse, widget: string }
           - { label: "Postleitzahl (Hauptsitz)", name: plz, widget: string }

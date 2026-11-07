@@ -11,5 +11,6 @@
   "email": "fahrschuleeasydrive@hotmail.com",
   "footer_text": "Fahrschule in Hannover-Ricklingen, Hemmingen, Laatzen und Hannover-List.",
   "anmelden_text": "Jetzt anmelden",
-  "teilen_bild": "/assets/img/teilen.jpg"
+  "teilen_bild": "/assets/img/teilen.jpg",
+  "logo_dunkel": "/assets/img/logo-dunkel.webp"
 }
